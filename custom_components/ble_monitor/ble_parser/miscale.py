@@ -56,7 +56,16 @@ def parse_miscale(self, data, source_mac, rssi):
             weight_unit = "kg"
         else:
             # measurement in unknown unit
-            weight = weight / 100
+            _LOGGER.warning(
+                "measurement in unknown unit from %s:, MAC: %s, ADV: %s, weight: %i, unit: %i",
+                device_type,
+                to_mac(source_mac),
+                data.hex(),
+                weight,
+                measunit
+            )
+            weight = None
+            # weight = weight / 100
             weight_unit = None
     else:
         device_type = None
